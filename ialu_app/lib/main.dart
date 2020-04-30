@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:ialu_app/screens/home_screen.dart';
 
 void main() => runApp(MyApp());
@@ -34,7 +35,15 @@ class FirstScreen extends StatelessWidget {
                 ),
               ),
               ListTile(
-                title: Text('LS Talks'),
+                title: Text('Universities'),
+                subtitle: Text('Menus'),
+                onTap: (){
+                  Navigator.pop(context);
+                }
+              ),
+              ListTile(
+                title: Text('Lasalle Talks'),
+                subtitle: Text('VideosGrid'),
                 onTap: (){
                   Navigator.push(
                     context,
@@ -43,9 +52,59 @@ class FirstScreen extends StatelessWidget {
                 },
               ),
               ListTile(
-                title: Text('Item 2'),
+                title: Text('Newsfeed'),
+                subtitle: Text('RSS'),
                 onTap: (){
                   Navigator.pop(context);
+                }
+              ),
+              ListTile(
+                title: Text('DLS Footsteps'),
+                subtitle: Text('URL'),
+                onTap: (){
+                  _launchURL('https://www.dlsfootsteps.org');
+                }
+              ),
+              ListTile(
+                title: Text('Resource Center'),
+                subtitle: Text('URL'),
+                onTap: (){
+                  _launchURL('https://www.lasallianresources.org');
+                }
+              ),
+              ListTile(
+                title: Text('IALU Webpage'),
+                subtitle: Text('URL'),
+                onTap: (){
+                  _launchURL('http://www.ialu.org');
+                }
+              ),
+              /* ListTile(
+                title: Text('Schedule'),
+                subtitle: Text('Events'),
+                onTap: (){
+                  Navigator.pop(context);
+                }
+              ), */
+              ListTile(
+                title: Text('Research'),
+                subtitle: Text('URL'),
+                onTap: (){
+                  _launchURL('http://rr.Bethlehem.edu/index.php/itemlist/category/24-general');
+                }
+              ),
+              ListTile(
+                title: Text('Journal'),
+                subtitle: Text('URL'),
+                onTap: (){
+                  _launchURL('https://axis.smumn.edu');
+                }
+              ),
+              ListTile(
+                title: Text('Symposium'),
+                subtitle: Text('URL'),
+                onTap: (){
+                  _launchURL('https://www.smumn.edu/about/institutes-affiliates/institute-for-lasallian-studies/international-symposium-on-lasallian-research ');
                 }
               ),
             ],
@@ -92,4 +151,25 @@ class SecondScreen extends StatelessWidget {
   }
 }
 
+_launchURL(url) async {
+  url = url;
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    throw 'Could not launch $url';
+  }
+}
+
+/*
+class DLSScreen extends StatelessWidget{
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'DLS Footsteps',
+      debugShowCheckedModeBanner: false,
+      home: DLS_FootstepsScreen(),
+    );
+  }
+}
+*/
 
