@@ -1,6 +1,5 @@
 
 import 'package:flutter/material.dart';
-
 import 'package:ialu_app/screens/home_screen.dart';
 
 void main() => runApp(MyApp());
@@ -24,21 +23,37 @@ class FirstScreen extends StatelessWidget {
         appBar: AppBar(
           title: Text('IALU Home'),
         ),
-        body: Center(
-          child: RaisedButton(
-            child: Text('LS Talks'),
-            onPressed: () {
-              Navigator.push(
-                context,
-                 MaterialPageRoute(builder: (context) => SecondScreen()),
-              );
-            },
-          ),
-        ),
+        drawer: Drawer(
+          child: ListView(
+            padding: EdgeInsets.zero,
+            children: <Widget>[
+              DrawerHeader(
+                child: Text('Main Menu'),
+                decoration: BoxDecoration(
+                  color: Colors.blue,
+                ),
+              ),
+              ListTile(
+                title: Text('LS Talks'),
+                onTap: (){
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => SecondScreen()),
+                  );
+                },
+              ),
+              ListTile(
+                title: Text('Item 2'),
+                onTap: (){
+                  Navigator.pop(context);
+                }
+              ),
+            ],
+          )
+        )
       );
   }
 }
-
 
 /*
 class SecondScreen extends StatelessWidget {
