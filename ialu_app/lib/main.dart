@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:ialu_app/screens/home_screen.dart';
 
+
+import 'RSSNews/RSSNews.dart';
+
 void main() => runApp(MyApp());
 
 
@@ -55,8 +58,11 @@ class FirstScreen extends StatelessWidget {
                 title: Text('Newsfeed'),
                 subtitle: Text('RSS'),
                 onTap: (){
-                  Navigator.pop(context);
-                }
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => RSS()),
+                  );
+                },
               ),
               ListTile(
                 title: Text('DLS Footsteps'),
@@ -151,6 +157,19 @@ class SecondScreen extends StatelessWidget {
   }
 }
 
+class RSS extends StatelessWidget{
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'RSS News',
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        primaryColor: Colors.red,
+      ),
+      home: new RSSNews(),
+    );
+  }
+}
 _launchURL(url) async {
   url = url;
   if (await canLaunch(url)) {

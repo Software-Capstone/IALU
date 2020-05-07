@@ -29,6 +29,13 @@ dependencies:
 
   url_launcher: ^5.4.0
 
+
+  #plugins for rss
+  #http: '0.11.3+17'
+  webfeed: ^0.4.2
+  cached_network_image: ^1.0.0
+  #url_launcher: ^5.2.5
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -46,7 +53,8 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
+  assets:
+    - lib/image/
   #  - images/a_dot_burr.jpeg
   #  - images/a_dot_ham.jpeg
 
