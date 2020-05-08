@@ -25,8 +25,6 @@ class RSSNewsState extends State<RSSNews> {
   
   static const String feedOpenErrorMsg = 'Error Opening Feed..';
 
-  static const String placeholderImg = '/lib/image/no_image.jpg';
-
   GlobalKey<RefreshIndicatorState> _refreshKey; //
 
   updateTitle(title){
