@@ -19,6 +19,7 @@ class _HomeScreenState extends State<HomeScreen> {
     _initChannel();
   }
 
+  //fetches channel based on channel id
   _initChannel() async {
     Channel channel = await APIService.instance
         .fetchChannel(channelId: 'UCBs37KyceonFymP1XzdCI1Q');
@@ -82,8 +83,8 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   _buildVideo(Video video) {
-    return GestureDetector(
-      onTap: () => Navigator.push(
+    return GestureDetector( // listens for events such as tapping 
+      onTap: () => Navigator.push( // if tap we use videoscreen to play video
         context,
         MaterialPageRoute(
           builder: (_) => VideoScreen(id: video.id),
@@ -126,21 +127,21 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   _loadMoreVideos() async {
-    _isLoading = true;
+    _isLoading = true; //ensure we dont fetch more videos multiple times
     List<Video> moreVideos = await APIService.instance
         .fetchVideosFromPlaylist(playlistId: _channel.uploadPlaylistId);
     List<Video> allVideos = _channel.videos..addAll(moreVideos);
     setState(() {
       _channel.videos = allVideos;
     });
-    _isLoading = false;
+    _isLoading = false; // user can load more vidoes when bottom of list is reached
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('YouTube Channel'),
+        title: Text('LS Talks'),
       ),
       body: _channel != null
           ? NotificationListener<ScrollNotification>(
@@ -149,11 +150,14 @@ class _HomeScreenState extends State<HomeScreen> {
                     _channel.videos.length != int.parse(_channel.videoCount) &&
                     scrollDetails.metrics.pixels ==
                         scrollDetails.metrics.maxScrollExtent) {
+                //if not loading videos, if list of videos not equal to channel video total, and if were at bottom of list view
+                //then load more videos
                   _loadMoreVideos();
                 }
                 return false;
               },
               child: ListView.builder(
+                //add one since we need need extra item for channel info
                 itemCount: 1 + _channel.videos.length,
                 itemBuilder: (BuildContext context, int index) {
                   if (index == 0) {

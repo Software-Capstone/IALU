@@ -17,19 +17,22 @@ class APIService {
     Map<String, String> parameters = {
       'part': 'snippet, contentDetails, statistics',
       'id': channelId,
-      'key': API_KEY,
+      'key': API_KEY, //authenticates get request
     };
     Uri uri = Uri.https(
       _baseUrl,
       '/youtube/v3/channels',
       parameters,
     );
+
+    //ensures get request returns json obj
     Map<String, String> headers = {
       HttpHeaders.contentTypeHeader: 'application/json',
     };
 
     // Get Channel
     var response = await http.get(uri, headers: headers);
+    //status code 200 = successful return of data
     if (response.statusCode == 200) {
       Map<String, dynamic> data = json.decode(response.body)['items'][0];
       Channel channel = Channel.fromMap(data);
@@ -63,9 +66,11 @@ class APIService {
 
     // Get Playlist Videos
     var response = await http.get(uri, headers: headers);
+    //check if request is successful
     if (response.statusCode == 200) {
       var data = json.decode(response.body);
 
+      //null aware operator ??, returns expression on L unless its null, in which case R is returned
       _nextPageToken = data['nextPageToken'] ?? '';
       List<dynamic> videosJson = data['items'];
 

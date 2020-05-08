@@ -20,6 +20,7 @@ class Channel {
     this.videos,
   });
 
+//returns instance of channel, parsing through json data
   factory Channel.fromMap(Map<String, dynamic> map) {
     return Channel(
       id: map['id'],

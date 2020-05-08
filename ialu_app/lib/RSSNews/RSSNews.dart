@@ -4,10 +4,6 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:webfeed/webfeed.dart';
 import 'package:http/http.dart' as http;
 
-//import 'package:cached_network_image/cached_network_image.dart';
-//import 'package:webfeed/domain/media/thumbnail.dart';
-
-
 
 class RSSNews extends StatefulWidget {
   RSSNews() : super();
@@ -19,6 +15,7 @@ class RSSNews extends StatefulWidget {
 }
 
 class RSSNewsState extends State<RSSNews> {
+  //gooogle news rss
    static const String FEED_URL = 'https://rss.app/feeds/OLB9t0uyOfCX3xGw.xml';
    RssFeed _feed;
    String _title;
@@ -30,7 +27,7 @@ class RSSNewsState extends State<RSSNews> {
 
   static const String placeholderImg = '/lib/image/no_image.jpg';
 
-  GlobalKey<RefreshIndicatorState> _refreshKey;
+  GlobalKey<RefreshIndicatorState> _refreshKey; //
 
   updateTitle(title){
     setState(() {
@@ -44,19 +41,21 @@ class RSSNewsState extends State<RSSNews> {
     });
   }
 
+  //URL launcher pluggin
   Future<void> openFeed(String url) async {
     if(await canLaunch(url)){
       await launch(
         url,
         forceSafariVC: true, 
-        forceWebView: false,
+        forceWebView: false, //opens in app 
       );
       return;
     }
-    updateTitle(feedOpenErrorMsg);
+    updateTitle(feedOpenErrorMsg); //displays error if url cant be launched
   }
 
 
+  //checks if feed is loaded, displays error if feed is null
   load() async{
     updateTitle(loadingFeedMsg);
     loadFeed().then((result){
@@ -64,12 +63,14 @@ class RSSNewsState extends State<RSSNews> {
         updateTitle(feedLoadErrorMsg);
         return;      
         }
+        //updates if feed loaded
         updateFeed(result);
         updateTitle(_feed.title);
     });
   }
 
 
+  //function to get the feed
    Future<RssFeed> loadFeed() async {
      try {
        final client = http.Client();
@@ -86,10 +87,12 @@ class RSSNewsState extends State<RSSNews> {
   @override
   void initState(){
     super.initState();
-    _refreshKey = GlobalKey<RefreshIndicatorState>();
-    updateTitle(widget.title);
-    load();
+    _refreshKey = GlobalKey<RefreshIndicatorState>(); //when you try to scroll, indicates its loading
+    updateTitle(widget.title); // Title RSS.app gave
+    load(); // calls function to load feed
   }
+
+
 
   title(title){
     return Text(
@@ -107,24 +110,6 @@ subtitle(subTitle){
       overflow: TextOverflow.ellipsis,
     );
   }
-  
-  /*
-  
-  thumbnail(imageUrl) {
-    return Padding(
-      padding: EdgeInsets.only(left: 15.0),
-      child: CachedNetworkImage(
-        placeholder: (context, url) => Image.asset(placeholderImg),
-        imageUrl: imageUrl,
-        height: 50,
-        width: 70,
-        alignment: Alignment.center,
-        fit: BoxFit.fill,
-      ),
-    );
-  }
-
-*/
 
   rightIcon() {
     return Icon(
@@ -134,18 +119,18 @@ subtitle(subTitle){
     );
   }
 
+  // builds the list
    list() {
     return ListView.builder(
       itemCount: _feed.items.length,
       itemBuilder: (BuildContext context, int index) {
         final item = _feed.items[index];
-        return ListTile(
+        return ListTile( //returns widget for each row in list
           title: title(item.title),
           subtitle: subtitle(item.pubDate),
-          //leading: thumbnail(item.enclosure.url),
-          trailing: rightIcon(),
+          trailing: rightIcon(), //icon to open up in browser
           contentPadding: EdgeInsets.all(5.0),
-          onTap: () => openFeed(item.link),
+          onTap: () => openFeed(item.link), //opens url on tap
         );
       },
     );
@@ -155,15 +140,16 @@ subtitle(subTitle){
     return null == _feed || null == _feed.items;
   }
 
+
   body() {
     return isFeedEmpty()
-        ? Center(
-            child: CircularProgressIndicator(),
+        ? Center( // ? checks if feed is empty, if not then center is set
+            child: CircularProgressIndicator(), //indicates progress is being made, tells user to wait
           )
         : RefreshIndicator(
           key: _refreshKey,
           child: list(),
-          onRefresh: () => load(),
+          onRefresh: () => load(), //calls load on refresh
         );
   }
 

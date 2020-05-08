@@ -85,13 +85,6 @@ class FirstScreen extends StatelessWidget {
                   _launchURL('http://www.ialu.org');
                 }
               ),
-              /* ListTile(
-                title: Text('Schedule'),
-                subtitle: Text('Events'),
-                onTap: (){
-                  Navigator.pop(context);
-                }
-              ), */
               ListTile(
                 title: Text('Research'),
                 subtitle: Text('URL'),
@@ -119,28 +112,6 @@ class FirstScreen extends StatelessWidget {
       );
   }
 }
-
-/*
-class SecondScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-
-      return new Scaffold(
-        appBar: AppBar(
-          title: Text("Second Screen"),
-        ),
-        body: Center(
-          child: RaisedButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            child: Text('Go back!'),
-          ),
-        ),
-    );
-  }
-}
-*/
 
 
 class SecondScreen extends StatelessWidget {
@@ -178,17 +149,4 @@ _launchURL(url) async {
     throw 'Could not launch $url';
   }
 }
-
-/*
-class DLSScreen extends StatelessWidget{
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'DLS Footsteps',
-      debugShowCheckedModeBanner: false,
-      home: DLS_FootstepsScreen(),
-    );
-  }
-}
-*/
 

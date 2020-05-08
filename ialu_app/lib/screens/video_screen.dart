@@ -3,7 +3,7 @@ import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class VideoScreen extends StatefulWidget {
 
-  final String id;
+  final String id; //id of video
 
   VideoScreen({this.id});
 
